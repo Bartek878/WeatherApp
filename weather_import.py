@@ -1,10 +1,6 @@
 class weather:
 
     def __init__(self):
-        # self.set_files()
-        # self.open_webpage()
-        # self.choose_city()
-        # self.current_weather()
         pass
 
     def set_files(self):
