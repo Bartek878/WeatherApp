@@ -1,10 +1,10 @@
+from .configurator import Config
+config = Config()
+
 class Send_Message:
 
     def __init__(self):
         pass
-
-    def set_files(self):
-        self.file_ok = 'D:/Bartosz/Python/hackaton-2-grupa-8/pogoda_ok.csv'
 
     def send_file(self):
         import smtplib
@@ -18,7 +18,7 @@ class Send_Message:
         receiver = input('Podaj adres email na który chcesz wysłać plik: ')
         email_from = username
         email_to = receiver
-        fileToSend = self.file_ok
+        fileToSend = config.file_ok
 
         message = MIMEMultipart()
         message["From"] = email_from

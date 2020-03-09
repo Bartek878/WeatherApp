@@ -1,31 +1,30 @@
+import csv
+from matplotlib import pyplot as plt
+from .configurator import Config
+config = Config()
+
 class Visuals:
 
     def __init__(self):
         pass
 
-    def set_files(self):
-        self.file_ok = 'D:/Bartosz/Python/hackaton-2-grupa-8/pogoda_ok.csv'
-        self.file_ok2 = 'D:/Bartosz/Python/hackaton-2-grupa-8/pogoda_ok2.csv'
-        self.file_ok3 = 'D:/Bartosz/Python/hackaton-2-grupa-8/pogoda_ok3.csv'
-
     def visual_prep(self):
-
-        text = open(self.file_ok, "r")
+        
+        text = open(config.file_ok, "r")
         text = ''.join([i for i in text]) \
             .replace("°C", "")
-        x = open(self.file_ok2, "w")
+        x = open(config.file_ok2, "w")
         x.writelines(text)
         x.close()
 
-        import csv
-        with open(self.file_ok2,newline='') as f:
+        with open(config.file_ok2,newline='') as f:
             r = csv.reader(f)
             data = [line for line in r]
-        with open(self.file_ok3,'w',newline='') as f:
+        with open(config.file_ok3,'w',newline='') as f:
             w = csv.writer(f)
             w.writerow(["Godzina", "Temperatura", "Temp. Odczuwalna", "Prognoza", "Wiatr kier.", "Wiatr pr", "Wiatr pr max", "Zachmurzenie", "Opady", "Wilgotność"])
             w.writerows(data)
-        filename = self.file_ok3
+        filename = config.file_ok3
         with open(filename) as f:
             reader = csv.reader(f)  #line 1
             header_row = next(reader)  #line 2
@@ -33,7 +32,7 @@ class Visuals:
         with open(filename) as f:
             reader = csv.reader(f)
             header_row = next(reader)
-            for index,column_header in enumerate(header_row):
+            for index, column_header in enumerate(header_row):
                 highs = []
             for row in reader:
                 highs.append(row[1])  # append temperatures
@@ -45,9 +44,6 @@ class Visuals:
                 highs.append(high)
 
     def visual_create(self):
-        import csv
-        from matplotlib import pyplot as plt
-
         filename = self.file_ok3
         with open(filename) as f:
             reader = csv.reader(f)

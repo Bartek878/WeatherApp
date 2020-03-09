@@ -1,20 +1,21 @@
+from selenium.webdriver.common.keys import Keys
+from selenium import webdriver
+import csv
+import os
+from .configurator import Config
+config = Config()
+
 class weather:
 
     def __init__(self):
         pass
 
-    def set_files(self):
-        self.file_raw = 'D:/Bartosz/Python/hackaton-2-grupa-8/pogoda_ok.raw'
-        self.file_ok = 'D:/Bartosz/Python/hackaton-2-grupa-8/pogoda_ok.csv'
-
     def open_webpage(self):
-        from selenium import webdriver
         self.driver = webdriver.Chrome('D:/Bartosz/Python/webdriver/chromedriver.exe')
         self.driver.get("https://pogoda.interia.pl/lista-wojewodztw")
         delay = 3
 
     def choose_city(self):
-        from selenium.webdriver.common.keys import Keys
         global city
         city = input('Podaj miasto, dla którego chcesz poznać pogodę: ')
         cookies_accept = self.driver.find_element_by_class_name("rodo-popup-agree")
@@ -45,17 +46,15 @@ class weather:
         print('Informacje na temat naszej pogody otrzymujemy bezpośrednio z serwerów ' + str(weather_provider.text))
 
     def write_to_csv(self):
-        import csv
-        import os
         lista_input = [el.text for el in self.driver.find_elements_by_class_name("weather-entry")]
-        with open(self.file_raw, 'w') as csvfile:
+        with open(config.file_raw, 'w') as csvfile:
             writer = csv.writer(csvfile, delimiter = ',')
             for wiersz in lista_input:
                 writer.writerow(wiersz.split("\n"))
         #Overwrite csv without blank lines
-        with open(self.file_raw) as input, open(self.file_ok, 'w') as output:
+        with open(config.file_raw) as input, open(config.file_ok, 'w') as output:
             non_blank = (line for line in input if line.strip())
             output.writelines(non_blank)
         #remove raw file
         input.close()
-        os.remove(self.file_raw)
+        os.remove(config.file_raw)
