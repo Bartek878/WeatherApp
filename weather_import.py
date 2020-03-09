@@ -5,7 +5,7 @@ import os
 from .configurator import Config
 config = Config()
 
-class getting_weather:
+class WeatherCreator:
 
     def __init__(self):
         pass
