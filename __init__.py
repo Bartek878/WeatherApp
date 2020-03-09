@@ -1,11 +1,11 @@
 #Selenium based app for weather forecast.
 
-from weather_import import getting_weather
-get_weather = getting_weather()
-from send_email import sending_message
-send_email = sending_message()
+from weather_import import WeatherCreator
+get_weather = WeatherCreator()
+from send_email import MailSender
+send_email = MailSender()
 from visualisation import creating_visualisation
-create_visualisation = creating_visualisation()
+create_visualisation = ChartCreator()
 
 def main():
 
