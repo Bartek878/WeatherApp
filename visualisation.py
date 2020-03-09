@@ -3,7 +3,7 @@ from matplotlib import pyplot as plt
 from .configurator import Config
 config = Config()
 
-class Visuals:
+class create_visualisation:
 
     def __init__(self):
         pass
