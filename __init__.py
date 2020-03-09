@@ -4,7 +4,7 @@ from weather_import import WeatherCreator
 get_weather = WeatherCreator()
 from send_email import MailSender
 send_email = MailSender()
-from visualisation import creating_visualisation
+from visualisation import ChartCreator
 create_visualisation = ChartCreator()
 
 def main():
