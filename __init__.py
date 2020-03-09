@@ -9,14 +9,11 @@ create_visualisation = creating_visualisation()
 
 def main():
 
-    getting_weather.set_files()
     getting_weather.open_webpage()
     getting_weather.choose_city()
-    weather.current_weather()
-    weather.write_to_csv()
-    send_email.set_files()
+    get_weather.current_weather()
+    get_weather.write_to_csv()
     send_email.send_file()
-    create_visualisation.set_files()
     create_visualisation.visual_prep()
     create_visualisation.visual_create()
 
