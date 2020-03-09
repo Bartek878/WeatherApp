@@ -15,6 +15,6 @@ def main():
     get_weather.write_to_csv()
     send_email.send_file()
     create_visualisation.get_data_for_chart()
-    create_visualisation.visual_create()
+    create_visualisation.create_chart()
 
 main()
