@@ -1,7 +1,7 @@
 from .configurator import Config
 config = Config()
 
-class Send_Message:
+class sending_message:
 
     def __init__(self):
         pass
