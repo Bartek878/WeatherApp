@@ -25,7 +25,7 @@ class getting_weather:
         delay = 2
         fill_city.send_keys(Keys.ENTER)
 
-    def current_weather(self):
+    def get_current_weather(self):
         current_temp = self.driver.find_element_by_class_name("weather-currently-temp .weather-currently-temp-strict")
         current_temp_feel = self.driver.find_element_by_class_name("feelTemperature .weather-currently-details-value")
         current_pressure = self.driver.find_element_by_class_name("pressure .weather-currently-details-value")
