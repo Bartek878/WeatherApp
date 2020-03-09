@@ -1,25 +1,23 @@
 #Selenium based app for weather forecast.
 
 from weather_import import weather
-weather = weather()
+get_weather = weather()
 from send_email import Send_Message
-email = Send_Message()
+send_email = Send_Message()
 from visualisation import Visuals
-visualise = Visuals()
-from weather_import import weather
-weather = weather()
+create_visualisation = Visuals()
 
 def main():
 
-    weather.set_files()
-    weather.open_webpage()
-    weather.choose_city()
+    get_weather.set_files()
+    get_weather.open_webpage()
+    get_weather.choose_city()
     weather.current_weather()
     weather.write_to_csv()
-    email.set_files()
-    email.send_file()
-    visualise.set_files()
-    visualise.visual_prep()
-    visualise.visual_create()
+    send_email.set_files()
+    send_email.send_file()
+    create_visualisation.set_files()
+    create_visualisation.visual_prep()
+    create_visualisation.visual_create()
 
 main()
