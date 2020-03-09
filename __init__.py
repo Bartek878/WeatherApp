@@ -11,7 +11,7 @@ def main():
 
     getting_weather.open_webpage()
     getting_weather.choose_city()
-    get_weather.current_weather()
+    get_weather.get_current_weather()
     get_weather.write_to_csv()
     send_email.send_file()
     create_visualisation.visual_prep()
