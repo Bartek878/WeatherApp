@@ -8,7 +8,7 @@ class creating_visualisation:
     def __init__(self):
         pass
 
-    def visual_prep(self):
+    def get_data_for_chart(self):
         
         text = open(config.file_ok, "r")
         text = ''.join([i for i in text]) \
@@ -43,7 +43,7 @@ class creating_visualisation:
                 high = int(row[1])  # Convert to int
                 highs.append(high)
 
-    def visual_create(self):
+    def create_chart(self):
         filename = self.file_ok3
         with open(filename) as f:
             reader = csv.reader(f)
