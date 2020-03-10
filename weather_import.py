@@ -3,16 +3,20 @@ from selenium import webdriver
 import csv
 import os
 import time
+import pathlib
 from configurator import Config
 config = Config()
+import io
+from PIL import Image
 
-class WeatherCreator:
+
+class WeatherImporter:
 
     def __init__(self):
         pass
 
     def open_webpage(self):
-        self.driver = webdriver.Chrome('C:/webdrivers/chromedriver.exe')
+        self.driver = webdriver.Chrome(str(pathlib.Path().absolute()) + '\chromedriver.exe')
         self.driver.get("https://pogoda.interia.pl/lista-wojewodztw")
 
     def choose_city(self):
@@ -46,6 +50,13 @@ class WeatherCreator:
         weather_provider = self.driver.find_element_by_class_name("weather-currently-poweredby-company")
         print('Informacje na temat naszej pogody otrzymujemy bezpośrednio z serwerów ' + str(weather_provider.text))
 
+    def get_weather_screenshot1(self):
+            self.driver.execute_script("window.scrollTo(0, 600);")
+            image = self.driver.find_element_by_id('chart-container-hbh').screenshot_as_png
+            imageStream = io.BytesIO(image)
+            im = Image.open(imageStream)
+            im.save('Obecna Pogoda.png')
+
     def get_data_to_file(self):
         lista_input = [el.text for el in self.driver.find_elements_by_class_name("weather-entry")]
         with open(config.file_raw, mode='w', encoding='utf-8') as csvfile:
@@ -60,7 +71,7 @@ class WeatherCreator:
         x = open(config.file_ok, mode='w+', encoding='latin-1')
         x.writelines(text)
         x.close()
-        os.remove(config.file_raw)
+        #os.remove(config.file_raw)
 
         #Overwrite csv without blank lines
         with open(config.file_ok, mode='r', encoding='utf-8') as input, open(config.file_ok2, mode='w', encoding='utf-8') as output:
@@ -68,4 +79,4 @@ class WeatherCreator:
             output.writelines(non_blank)
         #remove raw file
         input.close()
-        os.remove(config.file_ok)
+        #os.remove(config.file_ok)

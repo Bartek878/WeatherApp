@@ -1,7 +1,7 @@
 #Selenium based app for weather forecast.
 
-from weather_import import WeatherCreator
-weatherCreator = WeatherCreator()
+from weather_import import WeatherImporter
+weatherImporter = WeatherImporter()
 from send_email import MailSender
 mailSender = MailSender()
 from visualisation import ChartCreator
@@ -11,13 +11,15 @@ fileTransformer = FileTransformer()
 
 def main():
 
-    weatherCreator.open_webpage()
-    weatherCreator.choose_city()
-    weatherCreator.get_current_weather()
-    weatherCreator.get_data_to_file()
-    chartCreator.get_data_for_chart()
-    fileTransformer.from_csv_to_xlsx()
-    #mailSender.send_mail()
-    chartCreator.create_chart()
+    # weatherImporter.open_webpage()
+    # weatherImporter.choose_city()
+    # weatherImporter.get_current_weather()
+    # weatherImporter.get_weather_screenshot1()
+    # weatherImporter.get_data_to_file()
+    # chartCreator.get_data_for_chart()
+    # fileTransformer.from_csv_to_xlsx()
+    mailSender.send_mail()
+    # chartCreator.create_chart()
 
 main()
+

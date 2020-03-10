@@ -1,10 +1,11 @@
 from configurator import Config
 config = Config()
+import pathlib
 import smtplib
-import mimetypes
 from email.mime.multipart import MIMEMultipart
-from email import encoders
-from email.mime.base import MIMEBase
+import os
+from email.mime.text import MIMEText
+from email.mime.application import MIMEApplication
 
 class MailSender:
 
@@ -18,7 +19,8 @@ class MailSender:
         receiver = input('Podaj adres email na który chcesz wysłać plik: ')
         email_from = username
         email_to = receiver
-        fileToSend = config.file_ok2
+        dir_path = str(pathlib.Path().absolute())
+        files = ["Obecna Pogoda.png", "obraz.png", "Pogoda.xlsx"]
 
         message = MIMEMultipart()
         message["From"] = email_from
@@ -26,17 +28,14 @@ class MailSender:
         message["Subject"] = config.mail_subject
         message.preamble = "plik"
 
-        ctype, encoding = mimetypes.guess_type(fileToSend)
+        body = MIMEText('Results attached.', 'html', 'utf-8')
+        message.attach(body)  # add message body (text or html)
 
-        maintype, subtype = ctype.split("/", 1)
-
-        fp = open(fileToSend, "rb")
-        attachment = MIMEBase(maintype, subtype)
-        attachment.set_payload(fp.read())
-        fp.close()
-        encoders.encode_base64(attachment)
-        attachment.add_header("Content-Disposition", "attachment", filename=fileToSend)
-        message.attach(attachment)
+        for f in files:  # add files to the message
+            file_path = os.path.join(dir_path, f)
+            attachment = MIMEApplication(open(file_path, "rb").read(), _subtype="txt")
+            attachment.add_header('Content-Disposition', 'attachment', filename=f)
+            message.attach(attachment)
 
         server = smtplib.SMTP("poczta.o2.pl:25")
         server.starttls()
