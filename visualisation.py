@@ -56,4 +56,5 @@ class ChartCreator:
             plt.xlabel('', fontsize=16)
             plt.ylabel(config.chart_Y_axis_name, fontsize=16)
             plt.tick_params(axis='both', which='major', labelsize=16)
+            plt.savefig(config.file_png)
             plt.show()

@@ -8,5 +8,5 @@ class FileTransformer:
         pass
 
     def from_csv_to_xlsx(self):
-        read_file = pd.read_csv('r' + config.file_ok3)
-        read_file.to_excel('r' + config.file_excel, index=None, header=True)
+        read_file = pd.read_csv(config.file_ok3_r)
+        read_file.to_excel(config.file_excel, index=None, header=True)
