@@ -1,6 +1,6 @@
 import csv
 from matplotlib import pyplot as plt
-from .configurator import Config
+from configurator import Config
 config = Config()
 
 class ChartCreator:
@@ -9,23 +9,16 @@ class ChartCreator:
         pass
 
     def get_data_for_chart(self):
-        
-        text = open(config.file_ok, "r")
-        text = ''.join([i for i in text]) \
-            .replace("°C", "")
-        x = open(config.file_ok2, "w")
-        x.writelines(text)
-        x.close()
 
-        with open(config.file_ok2,newline='') as f:
-            r = csv.reader(f)
+        with open(config.file_ok2, mode='r', encoding='utf-8',  newline='') as file1:
+            r = csv.reader(file1)
             data = [line for line in r]
-        with open(config.file_ok3,'w',newline='') as f:
-            w = csv.writer(f)
-            w.writerow(["Godzina", "Temperatura", "Temp. Odczuwalna", "Prognoza", "Wiatr kier.", "Wiatr pr", "Wiatr pr max", "Zachmurzenie", "Opady", "Wilgotność"])
+        with open(config.file_ok3, mode='w+', encoding='utf-8', newline='') as file2:
+            w = csv.writer(file2)
+            w.writerow(config.header_names)
             w.writerows(data)
         filename = config.file_ok3
-        with open(filename) as f:
+        with open(filename, mode='r', encoding='utf-8',  newline='') as f:
             reader = csv.reader(f)  #line 1
             header_row = next(reader)  #line 2
 
@@ -44,7 +37,7 @@ class ChartCreator:
                 highs.append(high)
 
     def create_chart(self):
-        filename = self.file_ok3
+        filename = config.file_ok3
         with open(filename) as f:
             reader = csv.reader(f)
             header_row = next(reader)
@@ -59,8 +52,8 @@ class ChartCreator:
             fig = plt.figure(dpi=128, figsize=(10, 6))
             plt.plot(values, c='red')  # Line 1
             # Form chart
-            plt.title("Pogoda godzinowa na najbliższe 120h", fontsize=22)
+            plt.title(config.chart_title, fontsize=22)
             plt.xlabel('', fontsize=16)
-            plt.ylabel("Temperatura (°C)", fontsize=16)
+            plt.ylabel(config.chart_Y_axis_name, fontsize=16)
             plt.tick_params(axis='both', which='major', labelsize=16)
             plt.show()

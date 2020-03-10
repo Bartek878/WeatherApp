@@ -1,5 +1,10 @@
 class Config(object):
-    file_raw = 'D:/Bartosz/Python/hackaton-2-grupa-8/pogoda_raw.csv'
-    file_ok = 'D:/Bartosz/Python/hackaton-2-grupa-8/pogoda_ok.csv'
-    file_ok2 = 'D:/Bartosz/Python/hackaton-2-grupa-8/pogoda_ok2.csv'
-    file_ok3 = 'D:/Bartosz/Python/hackaton-2-grupa-8/pogoda_ok3.csv'
+    file_raw = 'C:/python_pliki/Python_Projects/WeatherApp/App_GitHub/pogoda_raw.csv'
+    file_ok = 'C:/python_pliki/Python_Projects/WeatherApp/App_GitHub/pogoda_ok.csv'
+    file_ok2 = 'C:/python_pliki/Python_Projects/WeatherApp/App_GitHub/pogoda_ok2.csv'
+    file_ok3 = 'C:/python_pliki/Python_Projects/WeatherApp/App_GitHub/pogoda_ok3.csv'
+    file_excel = 'C:/python_pliki/Python_Projects/WeatherApp/App_GitHub/Pogoda.xlsx'
+    header_names = ["Godzina", "Temperatura", "Temp. Odczuwalna", "Prognoza", "Wiatr kier.", "Wiatr pr", "Wiatr pr max", "Zachmurzenie", "Opady", "Wilgotność"]
+    chart_title = 'Pogoda godzinowa na najbliższe 120h'
+    chart_Y_axis_name = 'Temperatura (°C)'
+    mail_subject = 'Wysylam plik csv z hackathonu'
