@@ -14,21 +14,21 @@ class MailSender:
 
     def send_mail(self):
 
-        username = input('Podaj swoj adres email: ')
-        password = input('Podaj swoje hasło: ')
-        receiver = input('Podaj adres email na który chcesz wysłać plik: ')
+        username = config.user_mail
+        password = config.user_password
+        receiver = config.mail_receiver
         email_from = username
         email_to = receiver
         dir_path = str(pathlib.Path().absolute())
-        files = ["Obecna Pogoda.png", "obraz.png", "Pogoda.xlsx"]
+        files = [config.file_excel, config.file_png, config.file_png2]
 
         message = MIMEMultipart()
         message["From"] = email_from
         message["To"] = email_to
         message["Subject"] = config.mail_subject
-        message.preamble = "plik"
+        #message.preamble = "plik"
 
-        body = MIMEText('Results attached.', 'html', 'utf-8')
+        body = MIMEText(config.mail_body, 'html', 'utf-8')
         message.attach(body)  # add message body (text or html)
 
         for f in files:  # add files to the message

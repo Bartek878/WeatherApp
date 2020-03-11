@@ -13,20 +13,18 @@ from PIL import Image
 class WeatherImporter:
 
     def __init__(self):
-        pass
+        self.driver = webdriver.Chrome(str(pathlib.Path().absolute()) + '\chromedriver.exe')
 
     def open_webpage(self):
-        self.driver = webdriver.Chrome(str(pathlib.Path().absolute()) + '\chromedriver.exe')
         self.driver.get("https://pogoda.interia.pl/lista-wojewodztw")
 
     def choose_city(self):
-        global city
-        city = input('Podaj miasto, dla którego chcesz poznać pogodę: ')
+        time.sleep(1)
         cookies_accept = self.driver.find_element_by_class_name("rodo-popup-agree")
         cookies_accept.send_keys(Keys.ENTER)
         time.sleep(1)
         fill_city = self.driver.find_element_by_id("weather-currently-input-text-1")
-        fill_city.send_keys(city)
+        fill_city.send_keys(config.selected_city)
         time.sleep(1)
         fill_city.send_keys(Keys.ENTER)
 
@@ -36,10 +34,10 @@ class WeatherImporter:
         current_pressure = self.driver.find_element_by_class_name("pressure .weather-currently-details-value")
         current_wind = self.driver.find_element_by_class_name("wind .weather-currently-details-value")
 
-        print('Obecnie temperatura w miescie ' + city + ' to: ' + str(current_temp.text))
-        print('Obecnie odczuwalna temperatura w miescie ' + city + ' to: ' + str(current_temp_feel.text))
-        print('Obecnie cisnienie w miescie ' + city + ' to: ' + str(current_pressure.text))
-        print('Obecna predkosc wiatru w miescie ' + city + ' to: ' + str(current_wind.text))
+        print('Obecnie temperatura w miescie ' + config.selected_city + ' to: ' + str(current_temp.text))
+        print('Obecnie odczuwalna temperatura w miescie ' + config.selected_city + ' to: ' + str(current_temp_feel.text))
+        print('Obecnie cisnienie w miescie ' + config.selected_city + ' to: ' + str(current_pressure.text))
+        print('Obecna predkosc wiatru w miescie ' + config.selected_city + ' to: ' + str(current_wind.text))
 
         current_time = self.driver.find_element_by_class_name("weather-currently-info-item-time")
         current_sunrise = self.driver.find_element_by_class_name("weather-currently-info-sunrise")
@@ -74,9 +72,9 @@ class WeatherImporter:
         #os.remove(config.file_raw)
 
         #Overwrite csv without blank lines
-        with open(config.file_ok, mode='r', encoding='utf-8') as input, open(config.file_ok2, mode='w', encoding='utf-8') as output:
-            non_blank = (line for line in input if line.strip())
+        with open(config.file_ok, mode='r', encoding='utf-8') as inp, open(config.file_ok2, mode='w', encoding='utf-8') as output:
+            non_blank = (line for line in inp if line.strip())
             output.writelines(non_blank)
         #remove raw file
-        input.close()
+        inp.close()
         #os.remove(config.file_ok)
