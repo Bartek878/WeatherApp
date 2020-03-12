@@ -1,5 +1,9 @@
 from configurator import Config
 config = Config()
+
+from UserInputs import InputProvider
+inputProvider = InputProvider()
+
 import pathlib
 import smtplib
 from email.mime.multipart import MIMEMultipart
@@ -26,7 +30,6 @@ class MailSender:
         message["From"] = email_from
         message["To"] = email_to
         message["Subject"] = config.mail_subject
-        #message.preamble = "plik"
 
         body = MIMEText(config.mail_body, 'html', 'utf-8')
         message.attach(body)  # add message body (text or html)
@@ -37,8 +40,14 @@ class MailSender:
             attachment.add_header('Content-Disposition', 'attachment', filename=f)
             message.attach(attachment)
 
-        server = smtplib.SMTP("poczta.o2.pl:25")
-        server.starttls()
-        server.login(username,password)
-        server.sendmail(email_from, email_to, message.as_string())
-        server.quit()
+        try:
+            server = smtplib.SMTP("poczta.o2.pl:25")
+            server.starttls()
+            server.login(username,password)
+            server.sendmail(email_from, email_to, message.as_string())
+            server.quit()
+        except Exception:
+            print('Niestety podales zle dane do logowanie, wprowadz je ponownie: ')
+            config.user_mail = inputProvider.ask_for_login()
+            config.user_password = inputProvider.ask_for_password()
+            config.mail_receiver = inputProvider.ask_for_receiver_mail()

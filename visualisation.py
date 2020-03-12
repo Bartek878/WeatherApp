@@ -1,4 +1,5 @@
 import csv
+import os
 from matplotlib import pyplot as plt
 from configurator import Config
 config = Config()
@@ -35,6 +36,7 @@ class ChartCreator:
                    continue  # if empty strings which can't be int occurs
                 high = int(row[1])  # Convert to int
                 highs.append(high)
+            f.close()
 
     def create_chart(self):
         filename = config.file_ok3
@@ -58,4 +60,15 @@ class ChartCreator:
             plt.tick_params(axis='both', which='major', labelsize=16)
             plt.savefig(config.file_png)
             #plt.show()
+        f.close()
 
+class FileRemover:
+
+    def __init__(self):
+        pass
+
+    def remove_draft_files(self):
+        os.remove(config.file_raw)
+        os.remove(config.file_ok)
+        os.remove(config.file_ok2)
+        os.remove(config.file_ok3)

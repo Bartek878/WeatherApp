@@ -8,6 +8,7 @@ class FileTransformer:
         pass
 
     def change_csv_to_xlsx(self):
-        read_file = pd.read_csv(config.file_ok3_r, sep=',')
-        #read_file.to_excel("r'" + config.file_excel +"'", index=None, header=True)
-        read_file.to_excel(config.file_excel, engine='xlsxwriter')
+        df = pd.read_csv(config.file_ok3, sep=',')
+        writer = pd.ExcelWriter(config.file_excel, engine='xlsxwriter')
+        df.to_excel(writer, sheet_name='Weather')
+        writer.save()
